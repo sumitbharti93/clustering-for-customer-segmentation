@@ -1,0 +1,18 @@
+grid_search:
+  class: GridSearchCV
+  module: sklearn.model_selection
+  params:
+    verbose: 2
+model_selection:
+  module_0:
+    class: KMeans
+    module: sklearn.cluster
+    params:
+      init: k-means++
+    search_param_grid:
+      init:
+      - k-means++
+      - random
+
+
+

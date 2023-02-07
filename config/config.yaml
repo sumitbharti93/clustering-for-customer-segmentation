@@ -1,0 +1,25 @@
+training_pipeline_config:
+  pipeline_name: customer_segmentation
+  artifact_dir: artifact
+
+data_ingestion_config:
+  dataset_download_location: D:\Python Project\clustering-for-customer-segmentation\data\Online Retail.xlsx
+  ingested_dir: ingested_data
+
+data_validation_config:
+  schema_dir: config
+  schema_file_name: schema.yaml
+  report_file_name: report.yaml
+
+data_transformation_config:
+  transformed_dir: transformed_data
+  
+model_trainer_config:
+  trained_model_dir: trained_model
+  model_file_name: model.pkl
+  silhouette_score: 0.7
+  model_config_dir: config
+  model_config_file_name: model.yaml
+
+model_pusher_config:
+  model_export_dir: saved_clusters
