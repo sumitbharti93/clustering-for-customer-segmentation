@@ -48,3 +48,7 @@ MODEL_FILE_NAME_KEY = "model_file_name"
 SILHOUETTE_SCORE_KEY  = "silhouette_score"
 
 
+# Experiment dir and file name 
+
+EXPERIMENT_DIR_NAME="experiment"
+EXPERIMENT_FILE_NAME="experiment.csv"

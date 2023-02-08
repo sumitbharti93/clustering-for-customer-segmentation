@@ -10,7 +10,7 @@ def main():
         print(CONFIG_FILE_PATH)
         print(CURRENT_TIME_STAMP)
         pipeline = Pipeline()
-        pipeline.run()
+        pipeline.start()
     except Exception as e:
         raise cs_exception(e,sys) from e
 

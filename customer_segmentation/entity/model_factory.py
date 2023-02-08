@@ -29,63 +29,8 @@ GridSearchedBestModel = namedtuple("GridSearchedBestModel", ["model_serial_numbe
                                                              "grid_search_cv"
                                                              ])
 
-# BestModel = namedtuple("BestModel", ["model_serial_number",
-#                                      "model",
-#                                      "best_model",
-#                                      "best_parameters"])
-
 BestModel = namedtuple("BestModel", ["model",
                                      "slh_score"])
-
-MetricInfoArtifact = namedtuple("MetricInfoArtifact",
-                                ["model_name", "model_object", "silhouette_score", "index_number"])
-
-
-def evaluate_cluster_model(model_list: list, transformed_data, silhouette_score:float=0.7) -> MetricInfoArtifact:
-    """
-    Description:
-    This function compare multiple clustering model return best model
-    Params:
-    model_list: List of model
-    transformed_data : receives trnaformed data 
-    return
-    It retured a named tuple
-    
-    MetricInfoArtifact = namedtuple("MetricInfo",
-                                ["model_name", "model_object", "silhouette_score", "index_number"])
-    """
-    try:
-        
-    
-        index_number = 0
-        metric_info_artifact = None
-        for model in model_list:
-            model_name = str(model)  #getting model name based on model object
-            logging.info(f"{'>>'*30}Started evaluating model: [{type(model).__name__}] {'<<'*30}")
-            
-            #Getting prediction for training and testing dataset
-            y_pred = model.predict(transformed_data)
-
-            #Calculating r squared score on training and testing dataset
-            model_silhoutee_score = silhouette_score(transformed_data, y_pred)
-
-
-            #if model accuracy is greater than base accuracy and train and test score is within certain thershold
-            #we will accept that model as accepted model
-            if model_silhoutee_score >= silhouette_score:
-                silhouette_score = model_silhoutee_score
-                metric_info_artifact = MetricInfoArtifact(model_name=model_name,
-                                                        model_object=model,
-                                                        silhouette_score= silhouette_score,
-                                                        index_number=index_number)
-
-                logging.info(f"Acceptable model found {metric_info_artifact}. ")
-            index_number += 1
-        if metric_info_artifact is None:
-            logging.info(f"No model found with higher silhouette_score than base silhouette_score")
-        return metric_info_artifact
-    except Exception as e:
-        raise cs_exception(e, sys) from e
 
 
 class ModelFactory:
@@ -254,13 +199,12 @@ class ModelFactory:
 
             n_cluster = 0
             for i in range(len(percentage)-1):
-                diff = percentage[i]-percentage[i+1]
-                if diff < 5:
-                    n_cluster = i+1
+                if percentage[i] >50 and percentage[i+1] < 40:
+                    n_cluster = i+2
                     break
             print("n_cluster",n_cluster )
             model = ModelFactory.update_property_of_class(instance_ref=initialized_model.model, 
-                                                              property_data={"n_clusters" :3})
+                                                              property_data={"n_clusters" :n_cluster})
             model.fit(transformed_data)
             cluster_value = model.predict(transformed_data)
             model_slh_score = silhouette_score(transformed_data, cluster_value)

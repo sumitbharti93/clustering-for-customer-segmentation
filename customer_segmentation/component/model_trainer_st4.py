@@ -6,8 +6,7 @@ from typing import List
 from customer_segmentation.entity.artifact_entity import DataTransformationArtifact, ModelTrainerArtifact
 from customer_segmentation.entity.config_entity import ModelTrainerConfig
 from customer_segmentation.util.util import save_object,load_object
-from customer_segmentation.entity.model_factory import MetricInfoArtifact, ModelFactory,GridSearchedBestModel
-from customer_segmentation.entity.model_factory import evaluate_cluster_model
+from customer_segmentation.entity.model_factory import ModelFactory
 
 
 

@@ -11,8 +11,8 @@
 
 
 
-    {% if "saved_models" in result['parent_folder'] %}
-    <a href="/saved_models/{{result['parent_folder']}}"><i class="fa fa-arrow-left" aria-hidden="true"></i>Back</a>
+    {% if "saved_clusters" in result['parent_folder'] %}
+    <a href="/saved_clusters/{{result['parent_folder']}}"><i class="fa fa-arrow-left" aria-hidden="true"></i>Back</a>
     
     <h4 style="text-align:center;">
     {{result['parent_label']}}
@@ -22,7 +22,7 @@
     <div class="row">
         {% for href,label in result["files"].items() %}
         <div class="col-md-2 text-center">
-            <a href="/saved_models/{{href}}" style="text-decoration: none;">
+            <a href="/saved_clusters/{{href}}" style="text-decoration: none;">
 
                 <i class="fa {% if '.' in label %} fa-file {% else %} fa-folder {% endif %} fa-8x" aria-hidden="true"></i> <br>{{ label }}
                 {% if '.' in label %}
